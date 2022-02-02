@@ -28,9 +28,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             
                                             <div class="page-title-box">
                                                 <div class="page-title-right">
-                                                    <button style="border-radius: 17px;" class="btn btn-success" id="New_Category"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;New Category</button>
+                                                    <button style="border-radius: 17px;" class="btn btn-success" id="New_Category"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;New State</button>
                                                 </div>
-                                                <h4 class="page-title">Main Category</h4>
+                                                <h4 class="page-title">State List</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -40,9 +40,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <thead>
                                                 <tr>
                                                     <th>S.No</th> 
-                                                    <th>Department Name</th> 
-                                                    <th>Department Image</th> 
-                                                    <th>visibility</th>
+                                                    <th>Country</th> 
+                                                    <th>State</th> 
                                                     <th>Edit</th>
                                                 </tr>
                                                 </thead>
@@ -59,64 +58,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="modal-content modal-col-green card">
                                             <div class="modal-body body" style="background-color:white;">
                                                 <div class="card">
-                                                    <!-- <form  class="form-horizontal" id="Main_Department_Form" method="POST">
-                                                        <div class="card-body">
-                                                            <h4 class="card-title">Main Category</h4>
-                                                            <div class="form-group row">
-                                                                <label for="fname" class="col-sm-3 text-left control-label col-form-label">Main Category Name</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="mc_name" name="mc_name" placeholder="Main Category Name Here">
-                                                                </div>
-                                                                <p class="error mc_name"></p>
-                                                            </div>
-
-                                                            
-                                                         <div class="col-sm-12">
-                                                            <label for="cono1" class="col-sm-12 text-left control-label col-form-label">Product Image</label>
-                                                            <div class="col-sm-12" style="margin-left: 12px !important;">
-                                                               <input type="file" class="form-control custom-file-input" id="img_url" name="img_url" required="">
-                                                               <label class="custom-file-label" for="img_url" style="right: 25px !important;">Choose file...</label>
-                                                               <div class="invalid-feedback">Upload Valid File Format</div>
-                                                               <input type="file" id="img_url" name="img_url">
-                                                            </div>
-                                                            <p class="error img_url"></p>
-                                                         </div>
-                                                       
-                                                    </div>
-                                                    <div class="border-top">
-                                                        <div class="card-body" style="float:right;">
-                                                            <button type="button" class="btn btn-primary" id="Main_Department_Button">Submit</button>
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </form> -->
 
 
-                        <form class="form-material form-horizontal" name="Product_Form" id="Product_Form">
+                        <form class="form-material form-horizontal" name="state_form" id="state_form">
                            <div class="card-body">
-                              <h4 class="card-title">Main Category</h4> 
+                              <h4 class="card-title">State</h4> 
                               <div class="form-group row">
+
                                  <div class="col-sm-12">
-                                    <label for="cono1" class="col-sm-12 text-left control-label col-form-label">Main Category  Name</label>
+                                    <label for="cono1" class="col-sm-12 text-left control-label col-form-label">Country Name</label>
                                     <div class="col-sm-12">
-                                       <input class="form-control" name="mc_name" id="mc_name" placeholder="Enter Product Name">
+                                       <select class="form-control" name="country" id="country">
+                                            <option value="india">INDIA</option>
+                                       </select>
                                     </div>
-                                    <p class="error mc_name"></p>
-                                 </div>  
+                                    <p class="error country"></p>
+                                 </div>   
+
                                  <div class="col-sm-12">
-                                    <label for="cono1" class="col-sm-12 text-left control-label col-form-label">Main Category Image</label>
-                                    <div class="col-sm-12" style="margin-left: 12px !important;">
-                                       <input type="file" class="form-control custom-file-input" id="img_url" name="img_url" required="">
-                                       <label class="custom-file-label" for="img_url" style="right: 25px !important;">Choose file...</label>
-                                       <div class="invalid-feedback">Upload Valid File Format</div>
+                                    <label for="cono1" class="col-sm-12 text-left control-label col-form-label">State Name</label>
+                                    <div class="col-sm-12">
+                                       <input class="form-control" name="state_name" id="state_name" placeholder="Enter State Name">
                                     </div>
-                                    <p class="error img_url"></p>
-                                 </div>  
+                                    <p class="error state_name"></p>
+                                 </div>   
+
                               </div>
                            </div>
                            <div class="border-top">
                               <div class="card-body" style="float:right;">
-                                 <button type="button" class="btn btn-primary" id="Product_Button">Submit</button>
+                                 <button type="button" class="btn btn-primary" id="state_button">Submit</button>
                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                               </div>
                            </div>
@@ -135,7 +106,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div id="page-wrapper">
                     <?php require("component/footer.php"); ?>
-                    <script src="<?php echo base_url();?>custom/main_category.js"></script>
+                    <script src="<?php echo base_url();?>custom/state.js"></script>
                     
       <style>
          .image-display {

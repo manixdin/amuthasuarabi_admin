@@ -11,10 +11,17 @@ body {
 .navbar-custom{
 	/*background:#59A545;*/
   /* background: #29abe2!important; */
-  background: linear-gradient(to right, #fff, #fff) !important;
+  background:linear-gradient(to bottom, #ac262d, #ac262d) !important;
 }
 li.active_link{
     background: #bba75ede; 
+    width: 90%;
+    margin-left: 10%;
+    text-align: center;
+    border-radius: 25px 0px 0px 25px;
+}
+#side-menus li:hover{
+  background: #8e6c1d;
     width: 90%;
     margin-left: 10%;
     text-align: center;
@@ -327,7 +334,7 @@ body.authentication-bg::before
 
 .navbar-custom .topnav-menu .nav-link
 {
-  color: #ac262d!important;
+  color: #fff!important;
 }
 
 .badge

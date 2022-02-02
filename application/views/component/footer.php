@@ -37,5 +37,5 @@
         <script src="<?php echo base_url(); ?>assets/js/pages/form-pickers.init.js"></script>
                         <!-- App js -->
         <script src="<?php echo base_url(); ?>assets/js/app.min.js"></script>
-        <script src="<?php echo base_url();?>custom/getnotification.js"></script>
+        <!-- <script src="<?php echo base_url();?>custom/getnotification.js"></script> -->
 

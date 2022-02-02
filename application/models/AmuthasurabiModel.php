@@ -441,7 +441,157 @@ class AmuthasurabiModel extends CI_Model {
 			return $data;
 		}
 
+		public function RestoreBestOfferr($data)  
+		{	
+			$prod_id=$data["prod_id"];
+			$flag=$data["flag"];
+			unset($data["prod_id"]);
+			$this->db->where('prod_id', $prod_id);
+			$this->db->update('tbl_product',array("best_offer"=>$flag));
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
 
+		public function RestoreTopSaverr($data)  
+		{	
+			$prod_id=$data["prod_id"];
+			$flag=$data["flag"];
+			unset($data["prod_id"]);
+			$this->db->where('prod_id', $prod_id);
+			$this->db->update('tbl_product',array("top_saver"=>$flag));
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
+
+	//get city
+	public function getCityy()  
+	{  	
+		$sql = "SELECT a.*,b.* FROM `tbl_city_master` as a 
+			left join tbl_state_master as b on a.state_id=b.state_id where a.flag=1  ORDER by a.log DESC";	 	
+		$query = $this->db->query($sql);
+		$details = $query->result_array();	 
+		return $details;		
+	} 
+		public function insertCityy($data)  
+		{  
+			$this->db->insert('tbl_city_master', $data);
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
+		public function updateCityy($data)  
+		{  
+			$id=$data["id"];
+			unset($data["id"]);
+			$this->db->where('city_id', $id);
+			$this->db->update('tbl_city_master', $data);
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
+		public function deleteCityy($data)  
+		{	
+			$city_id=$data["city_id"]; 
+			unset($data["city_id"]);
+			$this->db->where('city_id', $city_id);
+			$this->db->update('tbl_city_master', array("flag"=>0)	);
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
+	//get state
+	public function getStatee()  
+	{  	
+		$sql = "SELECT * FROM `tbl_state_master` WHERE flag=1";	 	
+		$query = $this->db->query($sql);
+		$details = $query->result_array();	 
+		return $details;		
+	} 
+		public function insertStatee($data)  
+		{  
+			$this->db->insert('tbl_state_master', $data);
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
+		public function updateStatee($data)  
+		{  
+			$id=$data["id"];
+			unset($data["id"]);
+			$this->db->where('state_id', $id);
+			$this->db->update('tbl_state_master', $data);
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
+		public function deleteStatee($data)  
+		{	
+			$state_id=$data["state_id"]; 
+			unset($data["state_id"]);
+			$this->db->where('state_id', $state_id);
+			$this->db->update('tbl_state_master', array("flag"=>0)	);
+			if ($this->db->affected_rows() == '1')
+			{
+				$result["result"] = "success";
+				return $result;
+			}
+			else
+			{
+				$result["result"] = "fail";
+				return $result;
+			}
+		}
   // ======= used function ============
 
 }

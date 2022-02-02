@@ -61,19 +61,107 @@ class Amuthasurabi extends CI_Controller {
 		echo json_encode($success);
 	}
 	public function insertMainCategory()
-	{
+	{ 
 		header('Access-Control-Allow-Origin: *');
-		$data = $this->input->post();
-		$success=$this->AmuthasurabiModel->insertMainCategoryy($data);
-		echo json_encode($success);
+		$data = $this->input->post();  
+		$pathurll = 'uploads/MainCategory';
+		if (!is_dir($pathurll)) 
+		{
+			$old = umask(0);
+			mkdir($pathurll, 0777);
+			umask($old); 
+		}
+		$config['upload_path']          = $pathurll.'/';
+		$config['allowed_types']        = 'gif|jpg|png|jpeg';
+		$config['max_size']             = 2048;
+		//$this->load->library('upload');
+		$this->upload->initialize($config);	
+		if($this->upload->do_upload('img_url'))
+		{
+			unset($data["img_url"]);
+			$data["img_url"] = $pathurll.'/'.$this->upload->data('file_name');	 
+			$success=$this->AmuthasurabiModel->insertMainCategoryy($data);
+			echo json_encode($success);
+		}
+		else
+		{
+			$result["result"]=$this->upload->display_errors();
+			echo json_encode($result);
+		}	
 	}
+
+
 	public function updateMainCategory()
 	{
-		header('Access-Control-Allow-Origin: *');
-		$data = $this->input->post();
-		$success=$this->AmuthasurabiModel->updateMainCategoryy($data);
-		echo json_encode($success);
+		if ($this->input->server('REQUEST_METHOD') == 'POST')
+		{
+			if (empty($_FILES['img_url']['name'])) {
+				header('Access-Control-Allow-Origin: *');
+				$data = $this->input->post();
+				$success=$this->AmuthasurabiModel->updateMainCategoryy($data);	
+				if($success)
+				{
+					$res["result"] = "success";
+					echo json_encode($res);
+				}
+				else
+				{
+					$res["result"] = "fail";
+					echo json_encode($res);		
+				}		
+			}
+			else
+			{
+				header('Access-Control-Allow-Origin: *');
+				$data = $this->input->post();	
+				$pathurll = 'uploads/MainCategory';
+				if (!is_dir($pathurll)) 
+				{
+					$old = umask(0);
+					mkdir($pathurll, 0777);
+					umask($old); 
+				}
+				$config['upload_path']          = $pathurll.'/';
+				$config['allowed_types']        = 'gif|jpg|png|jpeg';
+				$config['max_size']             = 2048;
+				$this->upload->initialize($config);		
+				if($this->upload->do_upload('img_url'))
+				{
+					unset($data["img_url"]);
+					$data["img_url"] = $pathurll.'/'.$this->upload->data('file_name');			
+					$success=$this->AmuthasurabiModel->updateMainCategoryy($data);	
+					if($success["result"] =="success")
+					{
+						$result["result"]="success";
+						echo json_encode($result);	
+					}	
+					else
+					{
+						$result["result"]="fail";
+						echo json_encode($result);				
+					}	
+				}
+				else
+				{
+						$result["result"]=$this->upload->display_errors();
+						echo json_encode($result);
+				}
+			}
+		}
+		else
+		{
+				$result["result"]="fail";
+				echo json_encode($result);
+		}
 	}
+
+	// public function updateMainCategory()
+	// {
+	// 	header('Access-Control-Allow-Origin: *');
+	// 	$data = $this->input->post();
+	// 	$success=$this->AmuthasurabiModel->updateMainCategoryy($data);
+	// 	echo json_encode($success);
+	// }
 	public function deleteMainCategory()
 	{
 		header('Access-Control-Allow-Origin: *');
@@ -107,19 +195,111 @@ class Amuthasurabi extends CI_Controller {
 		$success=$this->AmuthasurabiModel->getSubCategoryy();
 		echo json_encode($success);
 	}
+	// public function insertSubCategory()
+	// {
+	// 	header('Access-Control-Allow-Origin: *');
+	// 	$data = $this->input->post();
+	// 	$success=$this->AmuthasurabiModel->insertSubCategoryy($data);
+	// 	echo json_encode($success);
+	// }
 	public function insertSubCategory()
-	{
+	{ 
 		header('Access-Control-Allow-Origin: *');
-		$data = $this->input->post();
-		$success=$this->AmuthasurabiModel->insertSubCategoryy($data);
-		echo json_encode($success);
+		$data = $this->input->post();  
+		$pathurll = 'uploads/SubCategory';
+		if (!is_dir($pathurll)) 
+		{
+			$old = umask(0);
+			mkdir($pathurll, 0777);
+			umask($old); 
+		}
+		$config['upload_path']          = $pathurll.'/';
+		$config['allowed_types']        = 'gif|jpg|png|jpeg';
+		$config['max_size']             = 2048; 
+		$this->upload->initialize($config);	
+		if($this->upload->do_upload('img_url'))
+		{
+			unset($data["img_url"]);
+			$data["img_url"] = $pathurll.'/'.$this->upload->data('file_name');	 
+			$success=$this->AmuthasurabiModel->insertSubCategoryy($data);
+			echo json_encode($success);
+		}
+		else
+		{
+			$result["result"]=$this->upload->display_errors();
+			echo json_encode($result);
+		}	
 	}
+	// public function updateSubCategory()
+	// {
+	// 	header('Access-Control-Allow-Origin: *');
+	// 	$data = $this->input->post();
+	// 	$success=$this->AmuthasurabiModel->updateSubCategoryy($data);
+	// 	echo json_encode($success);
+	// }
+	
 	public function updateSubCategory()
 	{
-		header('Access-Control-Allow-Origin: *');
-		$data = $this->input->post();
-		$success=$this->AmuthasurabiModel->updateSubCategoryy($data);
-		echo json_encode($success);
+		if ($this->input->server('REQUEST_METHOD') == 'POST')
+		{
+			if (empty($_FILES['img_url']['name'])) {
+				header('Access-Control-Allow-Origin: *');
+				$data = $this->input->post();
+				$success=$this->AmuthasurabiModel->updateSubCategoryy($data);	
+				if($success)
+				{
+					$res["result"] = "success";
+					echo json_encode($res);
+				}
+				else
+				{
+					$res["result"] = "fail";
+					echo json_encode($res);		
+				}		
+			}
+			else
+			{
+				header('Access-Control-Allow-Origin: *');
+				$data = $this->input->post();	
+				$pathurll = 'uploads/SubCategory';
+				if (!is_dir($pathurll)) 
+				{
+					$old = umask(0);
+					mkdir($pathurll, 0777);
+					umask($old); 
+				}
+				$config['upload_path']          = $pathurll.'/';
+				$config['allowed_types']        = 'gif|jpg|png|jpeg';
+				$config['max_size']             = 2048;
+				$this->upload->initialize($config);		
+				if($this->upload->do_upload('img_url'))
+				{
+					unset($data["img_url"]);
+					$data["img_url"] = $pathurll.'/'.$this->upload->data('file_name');			
+					$success=$this->AmuthasurabiModel->updateSubCategoryy($data);	
+					if($success["result"] =="success")
+					{
+						$result["result"]="success";
+						echo json_encode($result);	
+					}	
+					else
+					{
+						$result["result"]="fail";
+						echo json_encode($result);				
+					}	
+				}
+				else
+				{
+						$result["result"]=$this->upload->display_errors();
+						echo json_encode($result);
+				}
+			}
+		}
+		else
+		{
+				$result["result"]="fail";
+				echo json_encode($result);
+		}
 	}
 	public function RestoreSubCategoryData()
 	{
@@ -169,7 +349,7 @@ class Amuthasurabi extends CI_Controller {
 		if($this->upload->do_upload('prod_imgurl'))
 		{
 			unset($data["prod_imgurl"]);
-			$data["prod_imgurl"] = base_url().$pathurll.'/'.$this->upload->data('file_name');			
+			$data["prod_imgurl"] = $pathurll.'/'.$this->upload->data('file_name');			
 			$data["prod_id"]="null";
 			$success=$this->AmuthasurabiModel->insertProductsDataa($data);
 			echo json_encode($success);
@@ -205,7 +385,7 @@ class Amuthasurabi extends CI_Controller {
            $this->upload->initialize($config);
            $fileName = $_FILES['userfile']['name'];
            $this->upload->do_upload();
-           $images[] = base_url() ."uploads/ProductDetails/" .$fileName;
+           $images[] = "uploads/ProductDetails/" .$fileName;
          } 
             $fileName = implode(',',$images);
            	$success=$this->AmuthasurabiModel->InsertProductThumbnailImagee($data,$fileName);
@@ -271,7 +451,7 @@ class Amuthasurabi extends CI_Controller {
 				{
 					unset($data["prod_imgurl"]);
 					
-					$data["prod_imgurl"] = base_url().$pathurll.'/'.$this->upload->data('file_name');			
+					$data["prod_imgurl"] = $pathurll.'/'.$this->upload->data('file_name');			
 					$success=$this->AmuthasurabiModel->updateProductDataa($data);	
 					if($success["result"] =="success")
 					{
@@ -358,7 +538,86 @@ class Amuthasurabi extends CI_Controller {
 		$success=$this->AmuthasurabiModel->updateorderstatusmsgg($data);
 		echo json_encode($success);
 	}
-
+	public function RestoreBestOffer()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->RestoreBestOfferr($data);
+		echo json_encode($success);
+	}
+	public function RestoreTopSaver()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->RestoreTopSaverr($data);
+		echo json_encode($success);
+	}
+	public function State()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$this->load->view('state');
+	}
+	public function getState()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$success=$this->AmuthasurabiModel->getStatee();
+		echo json_encode($success);
+	}
+	public function insertState()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->insertStatee($data);
+		echo json_encode($success);
+	}
+	public function updateState()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->updateStatee($data);
+		echo json_encode($success);
+	}
+	public function deleteState()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->deleteStatee($data);
+		echo json_encode($success);
+	}
+	//city list
+	public function City()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data['state']=$this->AmuthasurabiModel->getStatee(); 
+		$this->load->view('city',$data);
+	}
+	public function getCity()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$success=$this->AmuthasurabiModel->getCityy();
+		echo json_encode($success);
+	}
+	public function insertCity()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->insertCityy($data);
+		echo json_encode($success);
+	}
+	public function updateCity()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->updateCityy($data);
+		echo json_encode($success);
+	}
+	public function deleteCity()
+	{
+		header('Access-Control-Allow-Origin: *');
+		$data = $this->input->post();
+		$success=$this->AmuthasurabiModel->deleteCityy($data);
+		echo json_encode($success);
+	}
   // <<<======= used function ============>>> //
 
 }

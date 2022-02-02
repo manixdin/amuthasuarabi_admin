@@ -133,6 +133,35 @@
                <span> User Order </span>
                </a>
             </li>
+            <!-- <li class='<?php if($this->uri->segment(2)=="State"){echo "active_link";}?>' >
+               <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url() ?>Amuthasurabi/State" aria-expanded="false">
+               <i class="fa fa-shopping-bag font-15 avatar-title"></i>
+               <span> State Master </span>
+               </a>
+            </li>
+            <li class='<?php if($this->uri->segment(2)=="City"){echo "active_link";}?>' >
+               <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="<?php echo base_url() ?>Amuthasurabi/City" aria-expanded="false">
+               <i class="fa fa-shopping-bag font-15 avatar-title"></i>
+               <span> City Master </span>
+               </a>
+            </li> -->
+
+            <li class='<?php if($this->uri->segment(2)=="City" || $this->uri->segment(2)=="State"){echo "active_link";}?>' >
+               <a href="#masterlist" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                  <i class="fa fa-pie-chart font-15 avatar-title"></i><span> Master </span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down" style="float:right;">
+                     <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+               </a>
+               <div class="collapse" id="masterlist" style="">
+                  <ul class="nav-second-level">
+                     <li id="subdept1"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() ?>Amuthasurabi/State" aria-expanded="false">State Master</a> </li> 
+                     <li id="subdept1"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() ?>Amuthasurabi/City" aria-expanded="false">City Master</a> </li> 
+                  </ul>
+               </div>
+            </li>
+
+
          </ul>
       </div>
       <!-- End Sidebar -->

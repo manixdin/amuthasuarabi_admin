@@ -46,6 +46,22 @@ $(document).ready(function() {
                 { "mDataProp": "sub_category_name"},     
                 {
                     "mDataProp": function(data, type, full, meta) {
+                        if (data.img_url !== null) 
+                            return "<div class='pro-im'>" +
+                            "<img src='" +base_URL+ data.img_url + "' alt='user' width=100>" +
+                            "<div class='pro-img-overlay'>" +
+                            "<ul class='pro-img-overlay-1'>" +
+                            "<li class='el-item'>" +
+                            "<a class='btn default btn-outline image-popup-vertical-fit el-link' target='blank' href='"+base_URL+ data.img_url + "'>" +
+                            "<i class='fa fa-eye'></i></a>" +
+                            "</li>" +
+                            "</ul></div></div>";
+                        else
+                            return '';
+                    }
+                }, 
+                {
+                    "mDataProp": function(data, type, full, meta) {
                         if (data.active_flag == 1)
                             return '<a id="' + meta.row + '" class="btn Btnhidden" style="padding:0px;" role="button" data-toggle="tooltip" data-placement="top" title="Click to edit"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;  visible</a>&nbsp;&nbsp;';
                         else
@@ -252,6 +268,11 @@ $(document).ready(function() {
         {
             $('.sub_category_name').html("* Please Fill Sub Category");
             $('.sub_category_name').show();
+        }
+        else if($('#img_url').val()=="")
+        {
+            $('.img_url').html("* Please Select Image");
+            $('.img_url').show();
         }
         else
         {

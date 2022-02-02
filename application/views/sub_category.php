@@ -70,6 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <th>S.no</th>
                                                     <th>Main Category </th>
                                                     <th>Sub Category</th>
+                                                    <th>Sub Category Image</th>
                                                     <th>visibility</th>
                                                     <th>Edit</th>
                                                 </tr>
@@ -91,8 +92,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="card-body">
                                                             <h4 class="card-title">Sub Department</h4>
                                                             <div class="form-group row">
-                                                                <label for="fname" class="col-sm-3 text-left control-label col-form-label">Main Department</label>
-                                                                <div class="col-sm-9">
+                                                                <label for="fname" class="col-sm-12 text-left control-label col-form-label">Main Department</label>
+                                                                <div class="col-sm-12">
                                                                         <div class="control-group">
                                                                             <select name="main_category_id" id="main_category_id">
                                                                                 <?php 
@@ -108,12 +109,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <p class="error main_category_id"></p>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="fname" class="col-sm-3 text-left control-label col-form-label">Sub Department</label>
-                                                                <div class="col-sm-9">
+                                                                <label for="fname" class="col-sm-12 text-left control-label col-form-label">Sub Department</label>
+                                                                <div class="col-sm-12">
                                                                     <input type="text" class="form-control" id="sub_category_name" name="sub_category_name" placeholder="Sub category Name Here">
                                                                 </div>
                                                                 <p class="error sub_category_name"></p>
                                                             </div>
+
+
+                                                            <div class="form-group row">
+                                                                 <div class="col-sm-12">
+                                                                    <label for="cono1" class="col-sm-12 text-left control-label col-form-label">Main Category Image</label>
+                                                                    <div class="col-sm-12" style="margin-left: 12px !important;">
+                                                                       <input type="file" class="form-control custom-file-input" id="img_url" name="img_url" required="">
+                                                                       <label class="custom-file-label" for="img_url" style="right: 25px !important;">Choose file...</label>
+                                                                       <div class="invalid-feedback">Upload Valid File Format</div>
+                                                                    </div>
+                                                                    <p class="error img_url"></p>
+                                                                 </div> 
+                                                             </div>
+
+
                                                     </div>
                                                     <div class="border-top">
                                                         <div class="card-body" style="float:right;">
@@ -141,7 +157,76 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     </script>
 
-
+                      <style>
+         .image-display {
+         display: inline-block;
+         margin-right: 25px;
+         }
+         .image-delete-icon {
+         margin-top: 20px;
+         text-align: center;
+         }
+         .image-delete-icon>i {
+         font-size: 16px;
+         }
+         ul.pro-img-overlay-1 {
+         text-decoration: none;
+         display: inline-block;
+         text-transform: uppercase;
+         color: #fff;
+         background-color: transparent;
+         filter: alpha(opacity=0);
+         -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+         transition: all .2s ease-in-out;
+         padding: 0;
+         margin: auto;
+         position: absolute;
+         top: 50%;
+         left: 0;
+         right: 0;
+         transform: translateY(-50%) translateZ(0);
+         -webkit-transform: translateY(-50%) translateZ(0);
+         -ms-transform: translateY(-50%) translateZ(0);
+         }
+         .pro-im {
+         width: 100%;
+         overflow: hidden;
+         position: relative;
+         cursor: default;
+         }
+         .pro-img-overlay {
+         width: 100px;
+         height: 100%;
+         position: absolute;
+         overflow: hidden;
+         top: 0;
+         left: 0;
+         opacity: 0;
+         background-color: rgba(0, 0, 0, 0.7);
+         -webkit-transition: all .4s ease-in-out;
+         -o-transition: all .4s ease-in-out;
+         transition: all .4s ease-in-out;
+         }
+         .pro-im:hover .pro-img-overlay {
+         opacity: 1;
+         filter: alpha(opacity=100);
+         -webkit-transform: translateZ(0);
+         -ms-transform: translateZ(0);
+         transform: translateZ(0);
+         text-align:center;
+         }
+         a.btn.default.btn-outline.image-popup-vertical-fit.el-link {
+         border-color: #fff;
+         color: #fff;
+         padding: 12px 15px 10px;
+         }
+         li.el-item {
+         list-style: none;
+         display: inline-block;
+         margin: 0 3px;
+         }
+      </style>
 
                 </body>
             </html>

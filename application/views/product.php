@@ -70,6 +70,8 @@
                               <th>Images</th> 
                               <th>ProductStock</th>
                               <th>Visibility</th>
+                              <th>Best Offer</th>
+                              <th>Top Saver</th>
                               <th>Edit</th>
                            </tr>
                         </thead>

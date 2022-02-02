@@ -138,11 +138,11 @@ $(document).ready(function() {
                 "mDataProp": function(data, type, full, meta) {
                     if (data.prod_imgurl !== null) 
                         return "<div class='pro-im'>" +
-                        "<img src='" + data.prod_imgurl + "' alt='user' width=100>" +
+                        "<img src='" +base_URL+ data.prod_imgurl + "' alt='user' width=100>" +
                         "<div class='pro-img-overlay'>" +
                         "<ul class='pro-img-overlay-1'>" +
                         "<li class='el-item'>" +
-                        "<a class='btn default btn-outline image-popup-vertical-fit el-link' target='blank' href='" + data.prod_imgurl + "'>" +
+                        "<a class='btn default btn-outline image-popup-vertical-fit el-link' target='blank' href='"+base_URL + data.prod_imgurl + "'>" +
                         "<i class='fa fa-eye'></i></a>" +
                         "</li>" +
                         "</ul></div></div>";
@@ -175,6 +175,25 @@ $(document).ready(function() {
 
                 }
             }, 
+
+            {
+                "mDataProp": function(data, type, full, meta) {
+                    if (data.best_offer == 1)
+                        return '<a id="' + meta.row + '" class="btn activeBestOffer btn-info" style="padding:0px;color:#fff;padding:0px 10px;" role="button" data-toggle="tooltip" data-placement="top" title="Click to edit"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;  Yes</a>&nbsp;&nbsp;';
+                    else
+                        return '<a id="' + meta.row + '" class="btn deactiveBestOffer btn-secondary" style="padding:0px;color:#fff;padding:0px 10px;" role="button" data-toggle="tooltip" data-placement="top" title="Click to edit"><i class="fa  fa-times-circle-o " aria-hidden="true"></i>&nbsp;  No</a>&nbsp;&nbsp;';;
+
+                }
+            }, 
+            {
+                "mDataProp": function(data, type, full, meta) {
+                    if (data.top_saver == 1)
+                        return '<a id="' + meta.row + '" class="btn activeTopSaver btn-info" style="padding:0px;color:#fff;padding:0px 10px;" role="button" data-toggle="tooltip" data-placement="top" title="Click to edit"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;  Yes</a>&nbsp;&nbsp;';
+                    else
+                        return '<a id="' + meta.row + '" class="btn deavtiveTopSaver btn-secondary" style="padding:0px;color:#fff;padding:0px 10px;" role="button" data-toggle="tooltip" data-placement="top" title="Click to edit"><i class="fa  fa-times-circle-o " aria-hidden="true"></i>&nbsp;  No</a>&nbsp;&nbsp;';;
+
+                }
+            }, 
             {
                 "mDataProp": function(data, type, full, meta) {
 
@@ -185,6 +204,101 @@ $(document).ready(function() {
             }, ],
         });
         $(".loading").hide();
+    }
+
+    //active deactive top saver
+    $(document).on('click', '.activeTopSaver', function() {
+        mode = "restore";
+        var r_index = $(this).attr('id');
+        prod_id = ProductJSON[r_index].prod_id;
+        var flag = 0;
+        RestoreTopSaver(prod_id,flag);
+    });
+
+
+    $(document).on('click', '.deavtiveTopSaver', function() {
+        mode = "restore";
+        var r_index = $(this).attr('id');
+        prod_id = ProductJSON[r_index].prod_id;
+        var flag = 1;
+        RestoreTopSaver(prod_id,flag);
+    });
+
+
+    function RestoreTopSaver(prod_id,flag)
+    {
+        var prod_id = prod_id;
+        var flag = flag;
+        request = $.ajax({
+                type: "POST",
+                url: base_URL+'Amuthasurabi/RestoreTopSaver',
+                data: {"prod_id":prod_id,"flag":flag},
+        }); 
+        request.done(function(response) {
+            var js = $.parseJSON(response);
+            var status = js.result
+            if (status == "success") {
+                refreshDetails();
+            } else {
+                $.confirm({
+                    icon: 'icon-close',
+                    title: 'Error',
+                    content: 'Sorry Something went worng please try again',
+                    type: 'red',
+                    buttons: {
+                        Ok: function() {},
+                    }
+                });
+            }
+        });
+    }
+
+    //actve deactive best offer
+
+    $(document).on('click', '.activeBestOffer', function() {
+        mode = "restore";
+        var r_index = $(this).attr('id');
+        prod_id = ProductJSON[r_index].prod_id;
+        var flag = 0;
+        RestoreBestOffer(prod_id,flag);
+    });
+
+
+    $(document).on('click', '.deactiveBestOffer', function() {
+        mode = "restore";
+        var r_index = $(this).attr('id');
+        prod_id = ProductJSON[r_index].prod_id;
+        var flag = 1;
+        RestoreBestOffer(prod_id,flag);
+    });
+
+
+    function RestoreBestOffer(prod_id,flag)
+    {
+        var prod_id = prod_id;
+        var flag = flag;
+        request = $.ajax({
+                type: "POST",
+                url: base_URL+'Amuthasurabi/RestoreBestOffer',
+                data: {"prod_id":prod_id,"flag":flag},
+        }); 
+        request.done(function(response) {
+            var js = $.parseJSON(response);
+            var status = js.result
+            if (status == "success") {
+                refreshDetails();
+            } else {
+                $.confirm({
+                    icon: 'icon-close',
+                    title: 'Error',
+                    content: 'Sorry Something went worng please try again',
+                    type: 'red',
+                    buttons: {
+                        Ok: function() {},
+                    }
+                });
+            }
+        });
     }
 
     /*Add Thumbnail images for product start*/
@@ -223,7 +337,7 @@ $(document).ready(function() {
                 var imageId = image_id.split(",");
                 for (var i = 0; i < imageName.length && imageId.length; i++) {
                     // console.log(imageName[i]);
-                    $('#user_uploaded_image1').append('<div class="image-display" id="image-display' + imageId[i] + '"><div><img src="' + imageName[i] + '" class="user-update-image" alt="user profile" width="100px" style="padding-top: 15px;"></div><div class="image-delete-icon"><i class="fa fa-trash image-delete" id="' + imageId[i] + '"></i></div></div>');
+                    $('#user_uploaded_image1').append('<div class="image-display" id="image-display' + imageId[i] + '"><div><img src="' +base_URL+ imageName[i] + '" class="user-update-image" alt="user profile" width="100px" style="padding-top: 15px;"></div><div class="image-delete-icon" style="cursor:pointer;"><i class="fa fa-trash image-delete" id="' + imageId[i] + '"></i></div></div>');
                 }
             }
         });
@@ -255,7 +369,9 @@ $(document).ready(function() {
                                 content: 'Deleted Succesfully',
                                 type: 'green',
                                 buttons: {
-                                    Ok: function() {},
+                                    Ok: function() {
+                                        $('#imageEditForm').modal('hide');
+                                    },
                                 }
                             });
                         },
@@ -406,6 +522,26 @@ $(document).ready(function() {
     });
 
 
+    $('#largeModal').on('show.bs.modal', function() {
+        clearDropdown();
+        $('.error').hide();
+        $('#sc_id').val('');
+        $('#mc_code').val('');
+        $('#sc_code').val('');
+        subdepartmentid = '';
+        maincategoryid = '';
+        subcategoryid = '';
+        $(this).find('form').trigger('reset');
+        $('.error').hide();
+        $('iframe').contents().find('body').empty();
+    });
+
+    $('#priceModel').on('show.bs.modal', function() {
+        $(this).find('form').trigger('reset');
+        $('.selling_price_div').html('');
+        $('.market_div').html('');
+    });
+
     $('#Product_Button').click(function() {
         $('.error').hide();
         //console.log($('#mcName').val());
@@ -445,30 +581,11 @@ $(document).ready(function() {
         }
     });
 
-    $('#largeModal').on('show.bs.modal', function() {
-        clearDropdown();
-        $('.error').hide();
-        $('#sc_id').val('');
-        $('#mc_code').val('');
-        $('#sc_code').val('');
-        subdepartmentid = '';
-        maincategoryid = '';
-        subcategoryid = '';
-        $(this).find('form').trigger('reset');
-        $('.error').hide();
-        $('iframe').contents().find('body').empty();
-    });
-
-    $('#priceModel').on('show.bs.modal', function() {
-        $(this).find('form').trigger('reset');
-        $('.selling_price_div').html('');
-        $('.market_div').html('');
-    });
-
 
     function saveProduct() {
         var form = $('#Product_Form')[0];
         var data = new FormData(form);
+        console.log(data)
         data.append("prod_info",CKEDITOR.instances['editor1'].getData());
         request = $.ajax({
             type: "POST",
@@ -819,15 +936,6 @@ $(document).ready(function() {
             var js = $.parseJSON(response);
             var status = js.result
             if (status == "success") {
-                // $.confirm({
-                //     icon: 'icon-close',
-                //     title: 'Info',
-                //     content: 'Updated Succesfully',
-                //     type: 'green',
-                //     buttons: {
-                //         Ok: function() {},
-                //     }
-                // });
                 refreshDetails();
             } else {
                 $.confirm({
